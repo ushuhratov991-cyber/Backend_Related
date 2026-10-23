@@ -4,6 +4,7 @@ import { v4 } from "uuid";
 
 import { OverallStudents } from "./types";
 import { request } from "node:http";
+import { resolve } from "node:dns";
 
 const router = Router();
 
@@ -73,10 +74,12 @@ const studentManagment: OverallStudents[] = [
   },
 ];
 
+//get all students
 router.get("/", (_request, response) => {
   response.status(200).json(studentManagment);
 });
 
+//get one student
 router.get("/:id", (request, response) => {
   const { id }: any = request.params;
 
@@ -93,6 +96,7 @@ router.get("/:id", (request, response) => {
 
 export default router;
 
+//add one student
 router.post("/", (_request, response) => {
   const {
     firstName,
@@ -127,6 +131,7 @@ router.post("/", (_request, response) => {
   }
 });
 
+//update student info
 router.patch("/:id", (request, response) => {
   const { id }: any = request.params;
 
@@ -184,4 +189,48 @@ router.patch("/:id", (request, response) => {
   }
 
   response.status(200).json(studentUpdate);
+});
+
+//delete
+
+router.delete("/:id", (request, response) => {
+  const { id } = request.params;
+
+  const delteStudetn = studentManagment.find((st) => st.id === id);
+
+  if (!delteStudetn) {
+    response
+      .status(404)
+      .json({ code: 404, message: `Student with id ${id} not found` });
+    throw new Error("Not found");
+  } else {
+    const studentIndex = studentManagment.findIndex((st) => st.id === id);
+    studentManagment.splice(studentIndex, 1);
+    response.status(200).json(studentManagment);
+  }
+});
+
+router.patch("/:id", (_request, response) => {
+  const { id } = _request.params;
+
+  const { averageGrade }: OverallStudents = _request.body;
+
+  const updateForAverageGrade = studentManagment.find((st) => st.id === id);
+
+  if (!updateForAverageGrade) {
+    response
+      .status(404)
+      .json({ code: 404, message: `Student with id ${id} not found` });
+    throw new Error("not found!");
+  }
+
+  if (!averageGrade) {
+    response.status(400).json({ code: 400, message: "Bad request" });
+  }
+
+  if (averageGrade) {
+    updateForAverageGrade.averageGrade = averageGrade;
+  }
+
+  response.status(200).json(updateForAverageGrade);
 });
