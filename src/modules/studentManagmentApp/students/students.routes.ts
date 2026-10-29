@@ -1,10 +1,9 @@
-import { response, Router } from "express";
+import { Router } from "express";
 
 import { v4 } from "uuid";
 
 import { OverallStudents } from "./types";
-import { request } from "node:http";
-import { resolve } from "node:dns";
+
 
 const router = Router();
 
@@ -13,7 +12,7 @@ const studentManagment: OverallStudents[] = [
     id: v4(),
     firstName: "John",
     lastName: "Johnson",
-    age: "44",
+    age: 44,
     course: "QA",
     paymentStatus: false,
     averageGrade: 5.0,
@@ -22,7 +21,7 @@ const studentManagment: OverallStudents[] = [
     id: v4(),
     firstName: "Alex",
     lastName: "Hirsh",
-    age: "23",
+    age: 23,
     course: "Frontend",
     paymentStatus: true,
     averageGrade: 9.0,
@@ -31,7 +30,7 @@ const studentManagment: OverallStudents[] = [
     id: v4(),
     firstName: "Anna",
     lastName: "Shmit",
-    age: "19",
+    age: 19,
     course: "HR",
     paymentStatus: true,
     averageGrade: 1.0,
@@ -40,7 +39,7 @@ const studentManagment: OverallStudents[] = [
     id: v4(),
     firstName: "Caroline",
     lastName: "Broad",
-    age: "50",
+    age: 50,
     course: "Ai Engeneer",
     paymentStatus: false,
     averageGrade: 7.0,
@@ -49,7 +48,7 @@ const studentManagment: OverallStudents[] = [
     id: v4(),
     firstName: "Martin",
     lastName: "Mayers",
-    age: "27",
+    age: 27,
     course: "Web Designer",
     paymentStatus: true,
     averageGrade: 3.0,
@@ -58,7 +57,7 @@ const studentManagment: OverallStudents[] = [
     id: v4(),
     firstName: "Bill",
     lastName: "Shifr",
-    age: "25",
+    age: 25,
     course: "Game Developper",
     paymentStatus: true,
     averageGrade: 8.0,
@@ -67,7 +66,7 @@ const studentManagment: OverallStudents[] = [
     id: v4(),
     firstName: "Sarah",
     lastName: "Willson",
-    age: "44",
+    age: 44,
     course: "QA",
     paymentStatus: false,
     averageGrade: 5.0,
@@ -94,7 +93,6 @@ router.get("/:id", (request, response) => {
   }
 });
 
-export default router;
 
 //add one student
 router.post("/", (_request, response) => {
@@ -234,3 +232,6 @@ router.patch("/:id", (_request, response) => {
 
   response.status(200).json(updateForAverageGrade);
 });
+
+
+export default router;
