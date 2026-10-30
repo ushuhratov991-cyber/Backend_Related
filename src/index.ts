@@ -2,6 +2,7 @@ import express from "express";
 // Создание бэкенд приложения. Для "управления" сервером
 import postRoutes from "./modules/posts/routes/posts.routes"
 import studentsRoutes from "./modules/studentManagmentApp/students/students.routes"
+import buildTodoRouter from "./modules/todos/todo.containers";
 const app = express();
 // use - специальный Middleware. Учит сервер понимать JSON(преобразовывать JSON в js обьекты и наоборот)
 app.use(express.json());
@@ -33,6 +34,7 @@ app.use(express.json());
 
 // app.use("/posts", postRoutes);
 app.use("/students", studentsRoutes);
+app.use("/todos", buildTodoRouter());
 
 const PORT = 3000;
 app.listen(PORT, () => {

@@ -7,7 +7,7 @@ class TodoController {
     this.service = service
   }
 
-  getAllTodos = async(request: Request, response: Response) => {
+  getAllTodos = async(_request: Request, response: Response) => {
     const todos = await this.service.getAllTodos(); 
     response.status(200).json(todos);
   }
