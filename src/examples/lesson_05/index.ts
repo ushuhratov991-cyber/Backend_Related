@@ -1,5 +1,3 @@
-import { Certificate, privateDecrypt } from "node:crypto";
-
 class FrontendDev {
   name: string;
 
@@ -56,12 +54,13 @@ class ProjectManager {
   releaseTask(userStory: string) {
     const checkTask = this.qa.taskFeature(userStory);
 
-    return {...checkTask, version: "v1.1"}
+    return { ...checkTask, version: "v1.1" };
   }
 }
 
-const managerMartin = new ProjectManager("Martin", engineerMax); 
+const managerMartin = new ProjectManager("Martin", engineerMax);
 
-console.log(managerMartin); 
-console.log(managerMartin.name); 
+console.log(managerMartin);
+console.log(managerMartin.name);
 console.log(managerMartin.releaseTask("Relesed Weather-App"));
+ 
