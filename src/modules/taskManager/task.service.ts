@@ -5,7 +5,7 @@ class TaskService {
     this.repo = repo;
   }
 
-  findAllTasks(): Promise<Task[]> {
+  getAllTasks(): Promise<Task[]> {
     return this.repo.getAllTasks();
   }
 

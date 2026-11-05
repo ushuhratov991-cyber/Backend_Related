@@ -4,6 +4,7 @@ import { pinoHttp } from "pino-http";
 import postRoutes from "./modules/posts/routes/posts.routes";
 import studentsRoutes from "./modules/studentManagmentApp/students/students.routes";
 import buildTodoRouter from "./modules/todos/todo.containers";
+import buildTaskRouter from "./modules/taskManager/task.containers";
 import { logger } from "./utils/logger";
 import { customLogger } from "./middleware/custom-logger";
 import {privateGuard} from "./middleware/private-guard"
@@ -41,9 +42,10 @@ app.use(customLogger);
 // });
 // Порт, через который открывается наше приложение
 
-// app.use("/posts", postRoutes);
+app.use("/posts", postRoutes);
 app.use("/students", studentsRoutes);
 app.use("/todos", buildTodoRouter());
+app.use("/tasks", buildTaskRouter()); 
 app.get("/private", privateGuard, (_request, response) => {
   response
     .status(200)
