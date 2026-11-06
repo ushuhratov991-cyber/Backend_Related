@@ -14,4 +14,7 @@ export interface TaskData {
     done: boolean,
   ) => Promise<Task>;
   getTask: (id: string) => Promise<Task | undefined>;
+  updateTask: (id: string ,title?: string, description?: string, done?: boolean) => Promise<Task | undefined>;
+  deleteTask: (id: string) => Promise<Task | undefined>
+
 }

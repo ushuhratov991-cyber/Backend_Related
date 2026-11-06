@@ -1,6 +1,8 @@
 import { Request, Response } from "express";
 
 import { TaskService } from "./task.service";
+import { request } from "node:http";
+import { error } from "node:console";
 
 class TaskController {
   constructor(private readonly service: TaskService) {
@@ -39,6 +41,38 @@ class TaskController {
         response.status(404).json({ code: 404, message: error.message });
       }
     }
+  };
+
+  updateTask = async (request: Request, response: Response) => {
+    const id = request.params.id;
+
+    if (typeof id !== "string") {
+      response.status(400).json({ code: 400, message: "Invalid task ID" });
+      return; 
+    }
+    
+    const { title, description, done } = request.body;
+
+    const taskUpdate = await this.service.updateTask(id,title,description,done);
+
+    if (!taskUpdate) {
+      response.status(404).json({code: 404, message: "Task not found"});
+      return;
+    }
+
+    response.status(200).json(taskUpdate);
+  };
+
+  deleteTask = async (request: Request, response: Response) => {
+    const id = request.params.id;
+
+    if (typeof id !== "string") {
+      response.status(400).json({ code: 400, message: "Invalid task ID" });
+      return;
+    }
+
+    const getTaskById = await this.service.deleteTask(id);
+    response.status(200).json(getTaskById);
   };
 }
 
