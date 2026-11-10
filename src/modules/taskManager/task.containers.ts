@@ -1,11 +1,11 @@
 import { Router } from "express";
-import { TaskRepository } from "./task.repository";
+import { DrizzleTaskRepository } from "./task.repository";
 import { TaskService } from "./task.service";
 import { TaskController } from "./task.controller";
 import { taskRouter } from "./task.routes";
 
 function buildTaskRouter(): Router {
-  const repository = new TaskRepository();
+  const repository = new DrizzleTaskRepository();
   const service = new TaskService(repository);
   const controller = new TaskController(service);
   return taskRouter(controller);

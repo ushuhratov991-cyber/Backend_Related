@@ -1,8 +1,6 @@
 import { Request, Response } from "express";
 
 import { TaskService } from "./task.service";
-import { request } from "node:http";
-import { error } from "node:console";
 
 class TaskController {
   constructor(private readonly service: TaskService) {
@@ -12,18 +10,6 @@ class TaskController {
   getAllTasks = async (_request: Request, response: Response) => {
     const tasks = await this.service.getAllTasks();
     response.status(200).json(tasks);
-  };
-
-  getTask = async (request: Request, response: Response) => {
-    const id = request.params.id;
-
-    if (typeof id !== "string") {
-      response.status(400).json({ code: 400, message: "Invalid task ID" });
-      return;
-    }
-
-    const getTaskById = await this.service.getTask(id);
-    response.status(200).json(getTaskById);
   };
 
   createTask = async (request: Request, response: Response) => {
@@ -43,20 +29,37 @@ class TaskController {
     }
   };
 
-  updateTask = async (request: Request, response: Response) => {
+  getTask = async (request: Request, response: Response) => {
     const id = request.params.id;
 
     if (typeof id !== "string") {
       response.status(400).json({ code: 400, message: "Invalid task ID" });
-      return; 
+      return;
     }
-    
+
+    const getTaskById = await this.service.getTask(id);
+    response.status(200).json(getTaskById);
+  };
+
+  updateTask = async (request: Request, response: Response) => {
+    const updatingId = request.params.id;
+
+    if (typeof updatingId !== "string") {
+      response.status(400).json({ code: 400, message: "Invalid task ID" });
+      return;
+    }
+
     const { title, description, done } = request.body;
 
-    const taskUpdate = await this.service.updateTask(id,title,description,done);
+    const taskUpdate = await this.service.updateTask(
+      updatingId,
+      title,
+      description,
+      done,
+    );
 
     if (!taskUpdate) {
-      response.status(404).json({code: 404, message: "Task not found"});
+      response.status(404).json({ code: 404, message: "Task not found" });
       return;
     }
 
@@ -64,15 +67,15 @@ class TaskController {
   };
 
   deleteTask = async (request: Request, response: Response) => {
-    const id = request.params.id;
+    const deleteId = request.params.id;
 
-    if (typeof id !== "string") {
+    if (typeof deleteId !== "string") {
       response.status(400).json({ code: 400, message: "Invalid task ID" });
       return;
     }
 
-    const getTaskById = await this.service.deleteTask(id);
-    response.status(200).json(getTaskById);
+    const deleteTaskById = await this.service.deleteTask(deleteId);
+    response.status(200).json(deleteTaskById);
   };
 }
 

@@ -9,19 +9,15 @@ class TaskService {
     return this.repo.getAllTasks();
   }
 
-  getTask(id: string): Promise<Task | undefined> {
-    return this.repo.getTask(id);
-  }
-
-  createTask(
-    title: string,
-    description: string,
-    done: boolean,
-  ): Promise<Task | undefined> {
+  createTask(title: string, description: string, done: boolean): Promise<Task> {
     if (!title) {
       throw new Error("Title is required!");
     }
     return this.repo.createTask(title, description, done);
+  }
+
+  getTask(id: string): Promise<Task | undefined> {
+    return this.repo.getTask(id);
   }
 
   updateTask(
@@ -30,10 +26,18 @@ class TaskService {
     description?: string,
     done?: boolean,
   ): Promise<Task | undefined> {
+    if (!id) {
+      throw new Error("ID is required");
+    }
+
     return this.repo.updateTask(id, title, description, done);
   }
 
   deleteTask(id: string): Promise<Task | undefined> {
+    if (!id) {
+      throw new Error("ID is required");
+    }
+
     return this.repo.deleteTask(id);
   }
 }
