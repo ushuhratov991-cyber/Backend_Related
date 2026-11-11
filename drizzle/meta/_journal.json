@@ -8,6 +8,20 @@
       "when": 1794251577498,
       "tag": "0000_slimy_logan",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1794355518076,
+      "tag": "0001_happy_skaar",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1794365153998,
+      "tag": "0002_black_rictor",
+      "breakpoints": true
     }
   ]
 }

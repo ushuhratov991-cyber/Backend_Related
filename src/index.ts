@@ -5,6 +5,7 @@ import postRoutes from "./modules/posts/routes/posts.routes";
 import studentsRoutes from "./modules/studentManagmentApp/students/students.routes";
 import buildTodoRouter from "./modules/todos/todo.containers";
 import buildTaskRouter from "./modules/taskManager/task.containers";
+import buildUsersRouter from "./modules/Users/users.containers"; 
 import { logger } from "./utils/logger";
 import { customLogger } from "./middleware/custom-logger";
 import {privateGuard} from "./middleware/private-guard"
@@ -46,6 +47,7 @@ app.use("/posts", postRoutes);
 app.use("/students", studentsRoutes);
 app.use("/todos", buildTodoRouter());
 app.use("/tasks", buildTaskRouter()); 
+app.use("/users", buildUsersRouter());
 app.get("/private", privateGuard, (_request, response) => {
   response
     .status(200)

@@ -17,6 +17,10 @@ class TaskService {
   }
 
   getTask(id: string): Promise<Task | undefined> {
+    if (!id) {
+      throw new Error("ID is required or incorrect")
+    }
+    
     return this.repo.getTask(id);
   }
 
