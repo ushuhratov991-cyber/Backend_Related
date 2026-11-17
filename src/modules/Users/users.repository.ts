@@ -1,14 +1,14 @@
 import { eq } from "drizzle-orm";
 import { db } from "../../db";
-import { users } from "../../db/schema/users";
+import { Users } from "../../db/schema/users";
 import { User, UserRepositoryData } from "./users.entity";
 
 class DrizzleUserRepository implements UserRepositoryData {
   async findByEmail(email: string): Promise<User | null> {
     const [userByEmail] = await db
       .select()
-      .from(users)
-      .where(eq(users.email, email));
+      .from(Users)
+      .where(eq(Users.email, email));
 
     return userByEmail;
   }
@@ -16,15 +16,15 @@ class DrizzleUserRepository implements UserRepositoryData {
   async create(email: string, password: string): Promise<User> {
     const newUser = { email, password };
 
-    const [createByEmail] = await db.insert(users).values(newUser).returning();
+    const [createByEmail] = await db.insert(Users).values(newUser).returning();
 
     return createByEmail;
   }
 
   async deleteUser(id: string): Promise<User | undefined> {
     const [deleById] = await db
-      .delete(users)
-      .where(eq(users.id, id))
+      .delete(Users)
+      .where(eq(Users.id, id))
       .returning();
 
     return deleById;
