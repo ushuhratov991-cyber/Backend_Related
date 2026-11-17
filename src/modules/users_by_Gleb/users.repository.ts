@@ -1,8 +1,8 @@
 import { eq } from "drizzle-orm";
 
 import { db } from "../../db";
-import { User, UsersRepository } from "./users.entity";
-import { users } from "../../db/schema/users";
+import { User, UsersRepository } from "./users.entity"; 
+import {users} from "../../db/schema/users_by_Gleb";
 
 class DrizzleUserRepository implements UsersRepository {
   async createUser(email: string, password: string): Promise<User> {

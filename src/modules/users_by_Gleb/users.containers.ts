@@ -1,4 +1,3 @@
-import router from "../posts/routes/posts.routes";
 import { DrizzleUserRepository } from "./users.repository";
 import UserService from "./users.service";
 import UserController from "./users.controller";

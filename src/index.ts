@@ -49,7 +49,7 @@ app.use("/students", studentsRoutes);
 app.use("/todos", buildTodoRouter());
 app.use("/tasks", buildTaskRouter()); 
 app.use("/users", buildUsersRouter());
-app.use("/Users", UserContainers());
+app.use("/", UserContainers());
 app.get("/private", privateGuard, (_request, response) => {
   response
     .status(200)
