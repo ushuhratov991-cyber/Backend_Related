@@ -4,7 +4,7 @@ import { users } from "../../db/schema/users";
 import { User, UserRepositoryData } from "./users.entity";
 
 class DrizzleUserRepository implements UserRepositoryData {
-  async findByEmail(email: string): Promise<User | undefined> {
+  async findByEmail(email: string): Promise<User | null> {
     const [userByEmail] = await db
       .select()
       .from(users)

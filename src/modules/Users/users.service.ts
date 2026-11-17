@@ -5,7 +5,7 @@ class UsersService {
     this.repo = repo;
   }
 
-  async findByEmail(email: string): Promise<User | undefined> {
+  async findByEmail(email: string): Promise<User | null> {
     if (!email) {
       throw new Error("Email is empty or incorrect!");
     }
